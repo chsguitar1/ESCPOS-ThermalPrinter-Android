@@ -2,14 +2,19 @@ package com.dantsu.escposprinter.connection;
 
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public abstract class DeviceConnection {
     protected OutputStream stream;
+    protected InputStream inputStream;
     protected byte[] data;
 
     public DeviceConnection() {
+        this.inputStream = null;
         this.stream = null;
         this.data = new byte[0];
     }
@@ -64,4 +69,6 @@ public abstract class DeviceConnection {
             throw new EscPosConnectionException(e.getMessage());
         }
     }
+
+
 }

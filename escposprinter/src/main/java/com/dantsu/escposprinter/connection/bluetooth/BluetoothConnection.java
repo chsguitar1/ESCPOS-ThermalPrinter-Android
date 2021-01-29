@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.ParcelUuid;
+import android.util.Log;
 
 import com.dantsu.escposprinter.connection.DeviceConnection;
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 public class BluetoothConnection extends DeviceConnection {
@@ -98,5 +102,31 @@ public class BluetoothConnection extends DeviceConnection {
         }
         return this;
     }
+
+    public String getStatusPrinter(){
+        String s = null;
+        try {
+            inputStream = this.socket.getInputStream();
+            InputStreamReader isr = new InputStreamReader(inputStream);
+
+            BufferedReader br = new BufferedReader(isr);
+            boolean isDone = false;
+
+            s = new String();
+
+            while(!isDone && ((s=br.readLine())!=null)){
+
+                System.out.println(s);   // Printing on Console
+                Log.i("driver de impressao", "getStatusPrinter: "+s);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+
+    }
+
+
 
 }
