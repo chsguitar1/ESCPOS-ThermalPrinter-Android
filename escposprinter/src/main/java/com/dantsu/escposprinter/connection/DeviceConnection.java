@@ -1,5 +1,7 @@
 package com.dantsu.escposprinter.connection;
 
+import android.util.Log;
+
 import com.dantsu.escposprinter.exceptions.EscPosConnectionException;
 
 import java.io.BufferedReader;
@@ -68,6 +70,13 @@ public abstract class DeviceConnection {
             e.printStackTrace();
             throw new EscPosConnectionException(e.getMessage());
         }
+    }
+
+    public String getStatusPrinter(){
+        String s = null;
+
+        return s;
+
     }
 
 

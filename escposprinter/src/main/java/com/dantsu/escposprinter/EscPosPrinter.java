@@ -12,8 +12,9 @@ import com.dantsu.escposprinter.textparser.PrinterTextParserLine;
 
 public class EscPosPrinter extends EscPosPrinterSize {
 
-    private EscPosPrinterCommands printer = null;
-
+    public EscPosPrinterCommands printer = null;
+    public  DeviceConnection deviceConnection;
+    public String status;
     /**
      * Create new instance of EscPosPrinter.
      *
@@ -22,8 +23,12 @@ public class EscPosPrinter extends EscPosPrinterSize {
      * @param printerWidthMM Printing width in millimeters
      * @param printerNbrCharactersPerLine The maximum number of characters that can be printed on a line.
      */
-    public EscPosPrinter(DeviceConnection printerConnection, int printerDpi, float printerWidthMM, int printerNbrCharactersPerLine) throws EscPosConnectionException {
+    public EscPosPrinter(DeviceConnection printerConnection, int printerDpi, float printerWidthMM, int printerNbrCharactersPerLine)
+            throws EscPosConnectionException {
+
+
         this(printerConnection != null ? new EscPosPrinterCommands(printerConnection) : null, printerDpi, printerWidthMM, printerNbrCharactersPerLine);
+        this.deviceConnection = printerConnection;
     }
 
     /**
@@ -37,6 +42,7 @@ public class EscPosPrinter extends EscPosPrinterSize {
      */
     public EscPosPrinter(DeviceConnection printerConnection, int printerDpi, float printerWidthMM, int printerNbrCharactersPerLine, EscPosCharsetEncoding charsetEncoding) throws EscPosConnectionException {
         this(printerConnection != null ? new EscPosPrinterCommands(printerConnection, charsetEncoding) : null, printerDpi, printerWidthMM, printerNbrCharactersPerLine);
+        this.deviceConnection = printerConnection;
     }
 
     /**
@@ -160,4 +166,7 @@ public class EscPosPrinter extends EscPosPrinterSize {
         return this;
     }
 
+    public String getStatus() {
+        return this.deviceConnection.getStatusPrinter();
+    }
 }
